@@ -17,6 +17,8 @@
                         <a class="nav-link" href="{{route('uif.aboutus')}}">Hakkımızda</a>
                     </li>
                 </ul>
+                <div class="nav-item float-end"><a class="nav-link" href="{{ route('management.index') }}">Admin Paneli</a></div>
+
             </div>
         </nav>
     </div><!-- end container-fluid -->

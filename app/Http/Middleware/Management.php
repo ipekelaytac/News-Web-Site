@@ -17,7 +17,7 @@ class Management
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('management')->check() && Auth::guard('management')->user()->isit_executive)
+        if (Auth::guard('management')->check())
         {
             return $next($request);
         }

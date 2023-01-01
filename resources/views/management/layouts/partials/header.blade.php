@@ -6,7 +6,7 @@
         </div>
         <div class="left-header col horizontal-wrapper ps-0">
             <ul class="horizontal-menu">
-                <li class="mega-menu outside"><a class="nav-link" href="#!" data-bs-original-title="" title=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg><span>Canlı Görüşme</span></a>
+                <li class="mega-menu outside"><a class="nav-link" href="{{ route('uif.index')}}" data-bs-original-title="" title=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg><span>Siteye Git</span></a>
                 </li>
                 <li class="level-menu outside"><a class="nav-link" href="{{ route('management.news.add') }}" data-bs-original-title="" title=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-inbox"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg><span>Haber Ekle</span></a>
                 </li>
@@ -22,6 +22,8 @@
                     <div class="media profile-media">
 {{--                        <img class="b-r-10" src="/management/assets/images/dashboard/profile.jpg" alt="">--}}
                         <div class="media-body"><span>{{ auth('management')->user()->name_surname }}</span>
+                                                    <p class="mb-0 font-roboto">{{ auth('management')->user()->isit_executive == 0 ? "Misafir" : ( auth('management')->user()->isit_executive == 1 ? "Admin" : "Kullanıcı" ) }} <i class="middle fa fa-angle-down"></i></p>
+
                         </div>
                     </div>
                     <ul class="profile-dropdown onhover-show-div">

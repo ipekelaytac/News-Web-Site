@@ -23,12 +23,12 @@
                             <p>Giriş yapmak için e-postanızı ve şifrenizi girin</p>
                             <div class="form-group">
                                 <label class="col-form-label">Mail Adresi</label>
-                                <input class="form-control" type="email" name="email" placeholder="Test@gmail.com">
+                                <input class="form-control" type="email" name="email" value="misafir@aytacipekel.com" placeholder="Test@gmail.com">
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label">Şifre</label>
                                 <div class="form-input position-relative">
-                                    <input class="form-control" id="password" type="password" name="password" placeholder="*********">
+                                    <input class="form-control" id="password" type="password" name="password" placeholder="*********" value="1">
                                         <i class="fa-solid fa-eye" id="eye"></i>
                                 </div>
                             </div>

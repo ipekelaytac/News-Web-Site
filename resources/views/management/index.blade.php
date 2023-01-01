@@ -23,7 +23,7 @@
         </div>
         <div class="container-fluid">
             <div class="row second-chart-list third-news-update">
-                <div class="col-xl-4 col-lg-12 xl-50 morning-sec box-col-12">
+                <div class="col-xl-4 xl-100 news box-col-12">
                     <div class="card o-hidden ">
                         <div class="card-body">
                             <div class="greeting-user text-center">

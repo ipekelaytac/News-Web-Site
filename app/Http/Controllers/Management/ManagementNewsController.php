@@ -11,6 +11,10 @@ use Illuminate\Support\Str;
 
 class ManagementNewsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin', ['only' => ['save','delete']]);
+    }
     public function index()
     {
         if (request()->filled('search')) {

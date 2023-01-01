@@ -10,6 +10,10 @@ use Illuminate\Support\Str;
 
 class ManagementSubscriberController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin', ['only' => ['delete']]);
+    }
     public function index(){
         $list = Subscriber::orderByDesc('id')->get();
         return view('management.subscriber.subscriber',compact('list'));

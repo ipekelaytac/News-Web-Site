@@ -9,6 +9,10 @@ use Illuminate\Support\Str;
 
 class ManagementCategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin', ['only' => ['save','delete']]);
+    }
     public function index(){
         $list = Category::orderByDesc('id')->get();
 

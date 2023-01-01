@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class ManagementMailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin', ['only' => ['delete']]);
+    }
     public function index(){
 
         if (request()->filled('search')) {

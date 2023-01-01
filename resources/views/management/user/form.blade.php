@@ -57,7 +57,7 @@
                                            placeholder="Şifre Giriniz." value="">
                                 </div>
                                 <div class="media mb-3">
-                                    <label class="col-form-label m-r-10">Yöneticimi Durumu:</label>
+                                    <label class="col-form-label m-r-10">Yöneticilik Durumu:</label>
                                     <div class="media-body text-end">
                                         <label class="switch">
                                             <input type="checkbox" name="isit_executive" {{  $entry->isit_executive == 1 ? 'checked' : '' }}><span class="switch-state"></span>

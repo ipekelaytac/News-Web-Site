@@ -91,16 +91,9 @@
                                                             </button>
 
                                                             <a href="{{ route('management.category.delete', $entry->id) }}"
-                                                               onclick="event.preventDefault();
-                        document.getElementById('delete').submit();"
                                                                class="btn btn-secondary" >Sil
-
                                                             </a>
-                                                            <form id="delete"
-                                                                  action="{{ route('management.category.delete', $entry->id) }}"
-                                                                  method="POST" style="display: none;">
-                                                                @csrf
-                                                            </form>
+                           
                                                         </div>
                                                     </div>
                                                 </div>

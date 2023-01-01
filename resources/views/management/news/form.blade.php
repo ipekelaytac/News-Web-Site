@@ -44,7 +44,7 @@
                                 <div class="col-sm-12">
                                     <div class="mb-3">
                                         <label for="validationCustom01">Başlık:</label>
-                                        <input class="form-control" id="validationCustom01" type="text" name="title" placeholder="Blog Başlığı" value="{{ old('title', $entry->title) }}">
+                                        <input class="form-control" id="validationCustom01" type="text" name="title" placeholder="Haber Başlığı" value="{{ old('title', $entry->title) }}">
                                     </div>
 
                                     <div class="mb-3">

@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Hash;
 
 class ManagementUserController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('admin', ['only' => ['save','delete']]);
+    }
     public function login()
     {
         if (request()->isMethod('POST')) {
@@ -23,7 +26,7 @@ class ManagementUserController extends Controller
             $credentials = [
                 'email' => request()->get('email'),
                 'password' => request()->get('password'),
-                'isit_executive' => 1,
+                'isit_executive' => [0,1],
                 'isit_active' => 1
             ];
 
