@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Category_News;
 use App\Models\News;
 use App\Models\NewsComment;
+use App\Models\NewsPoint;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,8 +33,15 @@ class UIFNewsController extends Controller
         $popular_news =News::orderByDesc('created_at')->take(3)->get();
         $news_comments = NewsComment::where('news_id',$news->id)->get();
         $users = User::all();
-
-        return view('uif.news_detail',compact('news','categories','category','popular_news','news_comments','users'));
+        $points = NewsPoint::where('news_id',$news->id)->avg('point');
+        $point = (int)$points;
+        $user_points = NewsPoint::where('user_id',auth()->id())->first();
+        if( $user_points == null){
+            $user_point = 0 ;
+        }else{
+            $user_point = $user_points->point;
+        }
+        return view('uif.news_detail',compact('news','categories','category','popular_news','news_comments','users','point','user_point'));
     }
 
         public function category_news($category_slug){

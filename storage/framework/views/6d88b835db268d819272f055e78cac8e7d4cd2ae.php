@@ -41,11 +41,12 @@
                         </div><!-- end title -->
                         <div class="row col-6 offset-3 mb-2">
                             <b class="">Haber Değerlendirme:</b>
+                            <?php for($i = 0 ; $i < $point; $i++): ?>
                             <span class="fa fa-star  m-1"></span>
-                            <span class="fa fa-star  m-1"></span>
-                            <span class="fa fa-star  m-1"></span>
-                            <span class="fa fa-star  notchecked m-1"></span>
-                            <span class="fa fa-star notchecked m-1"></span>
+                            <?php endfor; ?>
+                            <?php for($i = $point ; $i < 5; $i++): ?>
+                                <span class="fa fa-star  notchecked m-1"></span>
+                            <?php endfor; ?>
                         </div>
                         <div class="single-post-media">
                             <img src="<?php echo e($news->image!=null ? asset('uploads/news/' . $news->image) : 'https://via.placeholder.com/500?text=HaberResmi'); ?>" alt="" class="img-fluid">
@@ -74,7 +75,53 @@
 
                         <?php echo $__env->make('uif.layouts.partials.alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         <?php echo $__env->make('uif.layouts.partials.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        <hr class="invis1">
+                        <div class="custombox clearfix">
+                            <h4 class="small-title">Puan Ver</h4>
+                            <div class="row">
+                                <div class="col-lg-12">
 
+                                    <form class="form-wrapper rating" id="point-form" action="<?php echo e(route('uif.news_point')); ?>" method="post">
+                                        <?php echo e(csrf_field()); ?>
+
+                                        <input type="hidden" name="news_id" value="<?php echo e($news->id); ?>">
+
+                                        <label>
+                                            <input type="radio" name="point" value="1" <?php echo e($user_point == 1 ? 'checked' : ''); ?> />
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="point" value="2" <?php echo e($user_point == 2 ? 'checked' : ''); ?> />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="point" value="3" <?php echo e($user_point == 3 ? 'checked' : ''); ?> />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="point"  value="4" <?php echo e($user_point == 4 ? 'checked' : ''); ?> />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="point" value="5" <?php echo e($user_point == 5 ? 'checked' : ''); ?> />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                    </form><br>
+                                    <a  class="btn btn-primary" href="#" onclick="event.preventDefault(); document.getElementById('point-form').submit()">Gönder</a>
+
+                                </div>
+                            </div>
+                        </div>
                         <div class="custombox clearfix mt-5">
                             <h4 class="small-title"><?php echo e(count($news_comments)); ?> Yorum</h4>
                             <div class="row">
@@ -205,9 +252,8 @@
         </div><!-- end container -->
     </section>
     <script>
-        // Rating Initialization
-        $(document).ready(function() {
-            $('#rateMe1').mdbRate();
+        $(':radio').change(function() {
+            console.log('Yeni Star Puanı: ' + this.value);
         });
     </script>
 <?php $__env->stopSection(); ?>

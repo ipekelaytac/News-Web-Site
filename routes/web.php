@@ -92,6 +92,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/koleksiyonhabersil/{id}', [UIFFavoriteNewsController::class, 'collection_news_delete'])->name('uif.collection_news_delete');
     Route::post('/yorumyap', [UIFEvaluationNewsController::class, 'comment'])->name('uif.news_comment');
     Route::get('/yorumsil/{id}', [UIFEvaluationNewsController::class, 'comment_delete'])->name('uif.comment_delete');
+    Route::post('/puanver', [UIFEvaluationNewsController::class, 'point'])->name('uif.news_point');
+
 
 
 

@@ -42,11 +42,12 @@
                         </div><!-- end title -->
                         <div class="row col-6 offset-3 mb-2">
                             <b class="">Haber Değerlendirme:</b>
+                            @for($i = 0 ; $i < $point; $i++)
                             <span class="fa fa-star  m-1"></span>
-                            <span class="fa fa-star  m-1"></span>
-                            <span class="fa fa-star  m-1"></span>
-                            <span class="fa fa-star  notchecked m-1"></span>
-                            <span class="fa fa-star notchecked m-1"></span>
+                            @endfor
+                            @for($i = $point ; $i < 5; $i++)
+                                <span class="fa fa-star  notchecked m-1"></span>
+                            @endfor
                         </div>
                         <div class="single-post-media">
                             <img src="{{ $news->image!=null ? asset('uploads/news/' . $news->image) : 'https://via.placeholder.com/500?text=HaberResmi' }}" alt="" class="img-fluid">
@@ -74,7 +75,52 @@
 
                         @include('uif.layouts.partials.alert')
                         @include('uif.layouts.partials.errors')
+                        <hr class="invis1">
+                        <div class="custombox clearfix">
+                            <h4 class="small-title">Puan Ver</h4>
+                            <div class="row">
+                                <div class="col-lg-12">
 
+                                    <form class="form-wrapper rating" id="point-form" action="{{ route('uif.news_point') }}" method="post">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="news_id" value="{{$news->id}}">
+
+                                        <label>
+                                            <input type="radio" name="point" value="1" {{  $user_point == 1 ? 'checked' : '' }} />
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="point" value="2" {{  $user_point == 2 ? 'checked' : '' }} />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="point" value="3" {{  $user_point == 3 ? 'checked' : '' }} />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="point"  value="4" {{  $user_point == 4 ? 'checked' : '' }} />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="point" value="5" {{  $user_point == 5 ? 'checked' : '' }} />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                    </form><br>
+                                    <a  class="btn btn-primary" href="#" onclick="event.preventDefault(); document.getElementById('point-form').submit()">Gönder</a>
+
+                                </div>
+                            </div>
+                        </div>
                         <div class="custombox clearfix mt-5">
                             <h4 class="small-title">{{ count($news_comments) }} Yorum</h4>
                             <div class="row">
@@ -204,9 +250,8 @@
         </div><!-- end container -->
     </section>
     <script>
-        // Rating Initialization
-        $(document).ready(function() {
-            $('#rateMe1').mdbRate();
+        $(':radio').change(function() {
+            console.log('Yeni Star Puanı: ' + this.value);
         });
     </script>
 @endsection
