@@ -12,7 +12,7 @@
                     <div class="page-wrapper">
                         <?php echo $__env->make('uif.layouts.partials.alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         <?php echo $__env->make('uif.layouts.partials.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                        <h2 class='mb-3'>Koleksiyonum <?php echo e($favorite_collection->slug); ?></h2>
+                        <h2 class='mb-3'><?php echo e($favorite_collection->slug); ?> Koleksiyonum</h2>
                         <table id="dtBasicExample" class="table" width="100%">
                             <?php if(count($collection_news)>0): ?>
                             <thead>

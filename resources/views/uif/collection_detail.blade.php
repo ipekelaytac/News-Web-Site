@@ -13,7 +13,7 @@
                     <div class="page-wrapper">
                         @include('uif.layouts.partials.alert')
                         @include('uif.layouts.partials.errors')
-                        <h2 class='mb-3'>Koleksiyonum {{ $favorite_collection->slug }}</h2>
+                        <h2 class='mb-3'>{{ $favorite_collection->slug }} Koleksiyonum</h2>
                         <table id="dtBasicExample" class="table" width="100%">
                             @if(count($collection_news)>0)
                             <thead>
@@ -54,7 +54,7 @@
                             </tfoot>
                             @else
                                 <tr>
-                                    <td colspan="5">Henüz koleksiyonda haber yok</td>
+                                    <td colspan="5">Henüz koleksiyonunuzda haber yok</td>
                                 </tr>
 
                             @endif

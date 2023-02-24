@@ -5,6 +5,7 @@
     <section class="section single-wrapper">
         <div class="container">
             <div class="row">
+
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
                     <div class="page-wrapper">
@@ -21,11 +22,12 @@
                                     <input type="submit" class="btn-success" value="Ekle">
                                 </div>
                             </form>
-                            <h6 class="pull-right mt-3"><a href="<?php echo e(route('uif.collection')); ?>">Koleksiyonlarım</a></h6>
                             </div>
                         </div>
                         <?php echo $__env->make('uif.layouts.partials.alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         <?php echo $__env->make('uif.layouts.partials.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        <h6 class="pull-right mt-3"><a href="<?php echo e(route('uif.collection')); ?>">Koleksiyonlarım</a></h6>
+
                         <h2 class='mb-3'>Favori Ürünler</h2>
                         <table id="dtBasicExample" class="table" width="100%">
                             <?php if(count($favorite_news)>0): ?>

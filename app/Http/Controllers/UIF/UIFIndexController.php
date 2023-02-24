@@ -17,7 +17,7 @@ class UIFIndexController extends Controller
         $news_banner_1 = News::orderByDesc('created_at')->first();
         $news_banner_2 = News::whereNot('id',$news_banner_1->id)->orderByDesc('created_at')->first();
         $news_banner_3 = News::whereNotIn('id',[$news_banner_1->id,$news_banner_2->id,])->orderByDesc('created_at')->first();
-        $news = News::whereNotIn('id',[$news_banner_1->id,$news_banner_2->id,$news_banner_3->id])->orderByDesc('created_at')->get();
+        $news = News::whereNotIn('id',[$news_banner_1->id,$news_banner_2->id,$news_banner_3->id])->orderByDesc('created_at')->take(10)->get();
 
 //        $news_with_category_get = DB::table('category_news')
 //            ->join('news', 'news.id', 'category_news.id')

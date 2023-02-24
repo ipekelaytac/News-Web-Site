@@ -6,6 +6,7 @@
     <section class="section single-wrapper">
         <div class="container">
             <div class="row">
+
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
                     <div class="page-wrapper">
@@ -21,11 +22,12 @@
                                     <input type="submit" class="btn-success" value="Ekle">
                                 </div>
                             </form>
-                            <h6 class="pull-right mt-3"><a href="{{ route('uif.collection') }}">Koleksiyonlarım</a></h6>
                             </div>
                         </div>
                         @include('uif.layouts.partials.alert')
                         @include('uif.layouts.partials.errors')
+                        <h6 class="pull-right mt-3"><a href="{{ route('uif.collection') }}">Koleksiyonlarım</a></h6>
+
                         <h2 class='mb-3'>Favori Ürünler</h2>
                         <table id="dtBasicExample" class="table" width="100%">
                             @if(count($favorite_news)>0)
@@ -66,7 +68,7 @@
                             </tfoot>
                             @else
                                 <tr>
-                                    <td colspan="5">Henüz favorilerde haber yok</td>
+                                    <td colspan="5">Henüz favorilerinizde haber yok</td>
                                 </tr>
 
                             @endif

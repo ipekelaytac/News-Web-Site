@@ -2,14 +2,13 @@
 <?php $__env->startSection('head'); ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="/uif/css/star.css" rel="stylesheet">
-<style>
-    .notchecked {
-        color: grey;
-    }
-</style>
+    <style>
+        .notchecked {
+            color: grey;
+        }
+    </style>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-
 
     <section class="section single-wrapper">
         <div class="container">
@@ -23,7 +22,9 @@
                                 <li class="breadcrumb-item active"><?php echo e($news->title); ?></li>
                             </ol>
                             <?php if(!empty($category)): ?>
-                            <span class="color-orange"><a href="<?php echo e(route('uif.news.category_news', $category->slug)); ?>" title=""><?php echo e($category->category_name); ?></a></span>
+                                <span class="color-orange"><a
+                                            href="<?php echo e(route('uif.news.category_news', $category->slug)); ?>"
+                                            title=""><?php echo e($category->category_name); ?></a></span>
                             <?php endif; ?>
                             <h3><?php echo e($news->title); ?></h3>
 
@@ -33,28 +34,37 @@
 
                             <div class="post-sharing">
                                 <ul class="list-inline">
-                                    <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="down-mobile">Share on Facebook</span></a></li>
-                                    <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
-                                    <li><a href="#" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i>
+                                            <span class="down-mobile">Facebookta Paylaş</span></a></li>
+                                    <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i>
+                                            <span class="down-mobile">Twitterda paylaş</span></a></li>
+                                    <li><a href="#" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a>
+                                    </li>
                                 </ul>
                             </div><!-- end post-sharing -->
                         </div><!-- end title -->
-                        <div class="row col-6 offset-3 mb-2">
-                            <b class="">Haber Değerlendirme:</b>
-                            <?php for($i = 0 ; $i < $point; $i++): ?>
-                            <span class="fa fa-star  m-1"></span>
-                            <?php endfor; ?>
-                            <?php for($i = $point ; $i < 5; $i++): ?>
-                                <span class="fa fa-star  notchecked m-1"></span>
-                            <?php endfor; ?>
+                        <div class="row">
+                            <div class="col-5  mb-2">
+                                <b class="">Haber Değerlendirme:</b>
+                                <?php for($i = 0 ; $i < $point; $i++): ?>
+                                    <span class="fa fa-star  m-1"></span>
+                                <?php endfor; ?>
+                                <?php for($i = $point ; $i < 5; $i++): ?>
+                                    <span class="fa fa-star  notchecked m-1"></span>
+                                <?php endfor; ?>
+                            </div>
+                            <div class="col-4 mb-2 offset-3">
+                                <a class="btn btn-danger mb-1">Favorilere Ekle</a>
+                                <a class="btn btn-primary mb-1">Koleksiyona Ekle</a></div>
                         </div>
                         <div class="single-post-media">
-                            <img src="<?php echo e($news->image!=null ? asset('uploads/news/' . $news->image) : 'https://via.placeholder.com/500?text=HaberResmi'); ?>" alt="" class="img-fluid">
+                            <img src="<?php echo e($news->image!=null ? asset('uploads/news/' . $news->image) : 'https://via.placeholder.com/500?text=HaberResmi'); ?>"
+                                 alt="" class="img-fluid">
                         </div><!-- end media -->
 
                         <div class="blog-content">
                             <div class="pp">
-                                    <?php echo $news->content; ?>
+                                <?php echo $news->content; ?>
 
                             </div><!-- end pp -->
 
@@ -81,43 +91,51 @@
                             <div class="row">
                                 <div class="col-lg-12">
 
-                                    <form class="form-wrapper rating" id="point-form" action="<?php echo e(route('uif.news_point')); ?>" method="post">
+                                    <form class="form-wrapper rating" id="point-form"
+                                          action="<?php echo e(route('uif.news_point')); ?>" method="post">
                                         <?php echo e(csrf_field()); ?>
 
                                         <input type="hidden" name="news_id" value="<?php echo e($news->id); ?>">
 
                                         <label>
-                                            <input type="radio" name="point" value="1" <?php echo e($user_point == 1 ? 'checked' : ''); ?> />
+                                            <input type="radio" name="point"
+                                                   value="1" <?php echo e($user_point == 1 ? 'checked' : ''); ?> />
                                             <span class="icon">★</span>
                                         </label>
                                         <label>
-                                            <input type="radio" name="point" value="2" <?php echo e($user_point == 2 ? 'checked' : ''); ?> />
-                                            <span class="icon">★</span>
-                                            <span class="icon">★</span>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="point" value="3" <?php echo e($user_point == 3 ? 'checked' : ''); ?> />
-                                            <span class="icon">★</span>
+                                            <input type="radio" name="point"
+                                                   value="2" <?php echo e($user_point == 2 ? 'checked' : ''); ?> />
                                             <span class="icon">★</span>
                                             <span class="icon">★</span>
                                         </label>
                                         <label>
-                                            <input type="radio" name="point"  value="4" <?php echo e($user_point == 4 ? 'checked' : ''); ?> />
-                                            <span class="icon">★</span>
+                                            <input type="radio" name="point"
+                                                   value="3" <?php echo e($user_point == 3 ? 'checked' : ''); ?> />
                                             <span class="icon">★</span>
                                             <span class="icon">★</span>
                                             <span class="icon">★</span>
                                         </label>
                                         <label>
-                                            <input type="radio" name="point" value="5" <?php echo e($user_point == 5 ? 'checked' : ''); ?> />
+                                            <input type="radio" name="point"
+                                                   value="4" <?php echo e($user_point == 4 ? 'checked' : ''); ?> />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="point"
+                                                   value="5" <?php echo e($user_point == 5 ? 'checked' : ''); ?> />
                                             <span class="icon">★</span>
                                             <span class="icon">★</span>
                                             <span class="icon">★</span>
                                             <span class="icon">★</span>
                                             <span class="icon">★</span>
                                         </label>
-                                    </form><br>
-                                    <a  class="btn btn-primary" href="#" onclick="event.preventDefault(); document.getElementById('point-form').submit()">Gönder</a>
+                                    </form>
+                                    <br>
+                                    <a class="btn btn-primary" href="#"
+                                       onclick="event.preventDefault(); document.getElementById('point-form').submit()">Gönder</a>
 
                                 </div>
                             </div>
@@ -128,16 +146,23 @@
                                 <div class="col-lg-12">
                                     <div class="comments-list">
                                         <?php $__currentLoopData = $news_comments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $news_comment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <div class="media">
-                                            <div class="media-body">
-                                                <h4 class="media-heading user_name"><?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php if($user->id == $news_comment->user_id): ?> <?php echo e($user->email); ?><?php endif; ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <small>Tarih: <?php echo e($news_comment->created_at); ?></small></h4>
-                                                <p><?php echo e($news_comment->comment); ?></p>
-                                            </div>
-                                            <?php if( auth()->id() == $news_comment->user_id): ?>
-                                            <a href="<?php echo e(route('uif.comment_delete',$news_comment->id )); ?>" class="btn btn-primary">Sil</a>
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h4 class="media-heading user_name"><?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            <?php if($user->id == $news_comment->user_id): ?>
+                                                                <?php echo e($user->email); ?>
+
+                                                            <?php endif; ?>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <small>Tarih: <?php echo e($news_comment->created_at); ?></small>
+                                                    </h4>
+                                                    <p><?php echo e($news_comment->comment); ?></p>
+                                                </div>
+                                                <?php if( auth()->id() == $news_comment->user_id): ?>
+                                                    <a href="<?php echo e(route('uif.comment_delete',$news_comment->id )); ?>"
+                                                       class="btn btn-primary">Sil</a>
                                                 <?php endif; ?>
-                                        </div>
-                                        <hr>
+                                            </div>
+                                            <hr>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 
@@ -154,7 +179,8 @@
                                     <form class="form-wrapper" action="<?php echo e(route('uif.news_comment')); ?>" method="post">
                                         <?php echo e(csrf_field()); ?>
 
-                                        <textarea class="form-control" name="comment" placeholder="Yorum yap"></textarea>
+                                        <textarea class="form-control" name="comment"
+                                                  placeholder="Yorum yap"></textarea>
                                         <input type="hidden" name="news_id" value="<?php echo e($news->id); ?>">
                                         <button type="submit" class="btn btn-primary">Gönder</button>
                                     </form>
@@ -177,7 +203,8 @@
                                         <a href="<?php echo e(route('uif.news.detail', $entry->slug)); ?>"
                                            class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="<?php echo e($entry->image!=null ? asset('uploads/news/' . $entry->image) : 'https://via.placeholder.com/400?text=HaberResmi'); ?>" alt="" class="img-fluid float-left">
+                                                <img src="<?php echo e($entry->image!=null ? asset('uploads/news/' . $entry->image) : 'https://via.placeholder.com/400?text=HaberResmi'); ?>"
+                                                     alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1"><?php echo Str::limit($entry->content,20,'...'); ?></h5>
                                                 <small><?php echo e(date('d/m/Y',strtotime($entry->created_at))); ?></small>
                                             </div>
@@ -193,7 +220,8 @@
                             <div class="blog-list-widget">
                                 <div class="list-group">
                                     <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <a href="<?php echo e(route('uif.news.category_news', $category->slug)); ?>" class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <a href="<?php echo e(route('uif.news.category_news', $category->slug)); ?>"
+                                           class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
                                                 <h5 class="mb-1"><?php echo e($category->category_name); ?></h5>
                                             </div>
@@ -202,7 +230,7 @@
                                 </div>
                             </div><!-- end blog-list -->
                         </div>
-<hr>
+                        <hr>
                         <div class="widget">
                             <h2 class="widget-title">Takip Et</h2>
 
@@ -236,7 +264,7 @@
                                 </div>
                             </div>
                         </div><!-- end widget -->
-<hr>
+                        <hr>
                         <div class="widget">
                             <div class="banner-spot clearfix">
                                 <div class="banner-img">
@@ -252,7 +280,7 @@
         </div><!-- end container -->
     </section>
     <script>
-        $(':radio').change(function() {
+        $(':radio').change(function () {
             console.log('Yeni Star Puanı: ' + this.value);
         });
     </script>
