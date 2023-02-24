@@ -8,6 +8,7 @@ use App\Models\Categories;
 use App\Models\Category;
 use App\Models\Category_News;
 use App\Models\News;
+use App\Models\NewsComment;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -29,8 +30,10 @@ class UIFNewsController extends Controller
         $category = Category::find($category_search);
         $categories = Category::all();
         $popular_news =News::orderByDesc('created_at')->take(3)->get();
+        $news_comments = NewsComment::where('news_id',$news->id)->get();
+        $users = User::all();
 
-        return view('uif.news_detail',compact('news','categories','category','popular_news'));
+        return view('uif.news_detail',compact('news','categories','category','popular_news','news_comments','users'));
     }
 
         public function category_news($category_slug){

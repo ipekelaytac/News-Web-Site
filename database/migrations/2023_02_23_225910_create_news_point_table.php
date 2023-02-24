@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user', function (Blueprint $table) {
+        Schema::create('news_point', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name_surname',60)->nullable();
-            $table->string('email',150)->unique();
-            $table->string('password',60);
-            $table->boolean('isit_active')->default(0);
-            $table->boolean('isit_executive')->default(0);
+            $table->integer('point');
+            $table->integer('user_id')->unsigned();
+            $table->integer('news_id')->unsigned();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('news_id')->references('id')->on('news')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('news_point');
     }
 };

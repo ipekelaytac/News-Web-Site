@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 4.9.7
 -- https://www.phpmyadmin.net/
 --
--- Anamakine: localhost
--- Üretim Zamanı: 27 Ara 2022, 21:24:13
--- Sunucu sürümü: 10.4.21-MariaDB
--- PHP Sürümü: 7.4.29
+-- Anamakine: localhost:3306
+-- Üretim Zamanı: 17 Oca 2023, 21:21:52
+-- Sunucu sürümü: 8.0.31-cll-lve
+-- PHP Sürümü: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Veritabanı: `news_web_site`
+-- Veritabanı: `aytacipekel_haber`
 --
 
 -- --------------------------------------------------------
@@ -28,9 +29,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `category` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `category_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL
+  `id` int UNSIGNED NOT NULL,
+  `category_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -56,9 +57,9 @@ INSERT INTO `category` (`id`, `category_name`, `slug`) VALUES
 --
 
 CREATE TABLE `category_news` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `category_id` int(10) UNSIGNED NOT NULL,
-  `news_id` int(10) UNSIGNED NOT NULL
+  `id` int UNSIGNED NOT NULL,
+  `category_id` int UNSIGNED NOT NULL,
+  `news_id` int UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -113,11 +114,11 @@ INSERT INTO `category_news` (`id`, `category_id`, `news_id`) VALUES
 --
 
 CREATE TABLE `mail` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name_surname` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `subject` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `name_surname` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -155,9 +156,9 @@ INSERT INTO `mail` (`id`, `name_surname`, `email`, `subject`, `content`, `create
 --
 
 CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
+  `id` int UNSIGNED NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -180,11 +181,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `news` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(275) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(275) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -232,12 +233,12 @@ INSERT INTO `news` (`id`, `title`, `slug`, `content`, `image`, `created_at`, `up
 --
 
 CREATE TABLE `personal_access_tokens` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -251,8 +252,8 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 CREATE TABLE `subscriber` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL
+  `id` int UNSIGNED NOT NULL,
+  `email` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -298,12 +299,12 @@ INSERT INTO `subscriber` (`id`, `email`) VALUES
 --
 
 CREATE TABLE `user` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name_surname` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `isit_active` tinyint(1) NOT NULL DEFAULT 0,
-  `isit_executive` tinyint(1) NOT NULL DEFAULT 0,
+  `id` int UNSIGNED NOT NULL,
+  `name_surname` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isit_active` tinyint(1) NOT NULL DEFAULT '0',
+  `isit_executive` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -314,16 +315,19 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name_surname`, `email`, `password`, `isit_active`, `isit_executive`, `created_at`, `updated_at`) VALUES
 (1, 'Cleora Bosco', 'zerdman@hessel.com', '!U^*jg}pwqO/', 1, 0, '2022-12-26 19:05:27', '2022-12-26 19:05:27'),
-(2, 'Martin Harber', 'schumm.buddy@armstrong.com', 'E-=J+I6%jmc+p', 1, 1, '2022-12-26 19:05:27', '2022-12-26 19:05:27'),
+(2, 'Martin Harber', 'schumm.buddy@armstrong.com', 'E-=J+I6%jmc+p', 1, 0, '2022-12-26 19:05:27', '2022-12-31 20:25:51'),
 (3, 'Marilyne Harris', 'aullrich@rolfson.biz', 'qy@/BaNKA{[MC<!sx)3', 1, 0, '2022-12-26 19:05:27', '2022-12-26 19:05:27'),
-(4, 'Elise Boyer PhD', 'bethel90@gmail.com', 'ip>t`_|}1g5', 1, 1, '2022-12-26 19:05:27', '2022-12-26 19:05:27'),
+(4, 'Elise Boyer PhD', 'bethel90@gmail.com', 'ip>t`_|}1g5', 1, 0, '2022-12-26 19:05:27', '2022-12-31 20:26:30'),
 (5, 'Prof. Ulises Cummings', 'craynor@gmail.com', '4T3ZcM$^&)V,uvT.', 1, 0, '2022-12-26 19:05:27', '2022-12-26 19:05:27'),
-(6, 'Mr. Rowland Nikolaus III', 'hope80@mante.com', 'Pfa]aC7g', 1, 1, '2022-12-26 19:05:27', '2022-12-26 19:05:27'),
+(6, 'Mr. Rowland Nikolaus III', 'hope80@mante.com', 'Pfa]aC7g', 1, 0, '2022-12-26 19:05:27', '2022-12-31 20:26:43'),
 (7, 'Barrett Bailey', 'bella88@heaney.com', 'HF<AS$FpXqnjbS!3\'c', 1, 0, '2022-12-26 19:05:27', '2022-12-26 19:05:27'),
-(8, 'Domenica Gusikowski', 'khahn@gmail.com', 'w:gXzD\'VGS]3i|`1S7TQ', 1, 1, '2022-12-26 19:05:27', '2022-12-26 19:05:27'),
+(8, 'Domenica Gusikowski', 'khahn@gmail.com', 'w:gXzD\'VGS]3i|`1S7TQ', 1, 0, '2022-12-26 19:05:27', '2022-12-31 20:25:59'),
 (9, 'Jordyn Wiegand', 'rosario.upton@ward.org', '/[mRSTT:', 1, 0, '2022-12-26 19:05:27', '2022-12-26 19:05:27'),
-(10, 'Ismael Nolan', 'dwight56@yahoo.com', ']CD?us%vPg`,+e\"0', 1, 1, '2022-12-26 19:05:27', '2022-12-26 19:05:27'),
-(11, 'aytaç ipekel', 'aytacipekel@gmail.com', '$2y$10$jGV5MmO10HM66epYJaqpWuM4/A9z9C7HtkZP43k9YkmcwpFBfz6uu', 1, 1, '2022-12-27 17:16:58', '2022-12-27 17:16:58');
+(10, 'Ismael Nolan', 'dwight56@yahoo.com', ']CD?us%vPg`,+e\"0', 1, 0, '2022-12-28 23:31:36', '2022-12-31 20:24:24'),
+(11, 'Aytaç İpekel', 'info@aytacipekel.com', '$2y$10$Af3jRhKUTS8KvPKuCX.iqexHm9DYXwKky35NSNMbOuRGkPxXPYr92', 1, 1, '2023-01-01 17:16:58', '2023-01-01 08:24:25'),
+(12, 'Misafir', 'misafir@aytacipekel.com', '$2y$10$VNqfQ7Wfy0Pc7IVJPDXFjOTDW.4nHBiwgP5vAjvP2WXJvXm9k1SgK', 1, 0, '2022-12-31 23:30:21', '2023-01-01 08:24:37'),
+(13, 'Ahmet Selim Över', 'ahmetselimover@gmail.com', '$2y$10$muSoOmxMPFc/a9oCJdmDlu7T8Ce7AygzHHUGqe76FSqcUgwrHPely', 1, 1, '2023-01-02 20:28:23', '2023-01-01 08:25:18'),
+(14, 'Ramazan Bakır', 'ramazan.bakir@gmail.com', '$2y$10$ifBDmAh6DNAPFXDJsPeFxe0KxGfMsqyMHn0ygdsbwU.i0..AyHEt6', 1, 1, '2023-01-02 20:29:19', '2023-01-01 08:25:06');
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -391,60 +395,49 @@ ALTER TABLE `user`
 -- Tablo için AUTO_INCREMENT değeri `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `category_news`
 --
 ALTER TABLE `category_news`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `mail`
 --
 ALTER TABLE `mail`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `subscriber`
 --
 ALTER TABLE `subscriber`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- Dökümü yapılmış tablolar için kısıtlamalar
---
-
---
--- Tablo kısıtlamaları `category_news`
---
-ALTER TABLE `category_news`
-  ADD CONSTRAINT `category_news_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `category_news_news_id_foreign` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
