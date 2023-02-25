@@ -2,13 +2,15 @@
 <head><title>Kullanıcı işlemleri
     </title>
     <link href="/uif/css/login.css" rel="stylesheet">
+    <link href="/uif/css/bootstrap.css" rel="stylesheet">
 </head>
-<body>
+<body style="background-color:#4070f4">
 <?php echo $__env->make('uif.layouts.partials.alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('uif.layouts.partials.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <section class="container forms">
 
     <div class="form login" style="margin-right: 500px">
+
         <div class="form-content">
             <header>Giriş Yap</header>
             <form action="<?php echo e(route('uif.login')); ?>" method="post">

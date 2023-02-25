@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Anamakine: localhost:3306
--- Üretim Zamanı: 17 Oca 2023, 21:21:52
--- Sunucu sürümü: 8.0.31-cll-lve
--- PHP Sürümü: 7.4.30
+-- Anamakine: localhost
+-- Üretim Zamanı: 25 Şub 2023, 19:30:16
+-- Sunucu sürümü: 10.4.21-MariaDB
+-- PHP Sürümü: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Veritabanı: `aytacipekel_haber`
+-- Veritabanı: `news_web_site`
 --
 
 -- --------------------------------------------------------
@@ -29,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `category` (
-  `id` int UNSIGNED NOT NULL,
-  `category_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `category_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -57,9 +56,9 @@ INSERT INTO `category` (`id`, `category_name`, `slug`) VALUES
 --
 
 CREATE TABLE `category_news` (
-  `id` int UNSIGNED NOT NULL,
-  `category_id` int UNSIGNED NOT NULL,
-  `news_id` int UNSIGNED NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `category_id` int(10) UNSIGNED NOT NULL,
+  `news_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -114,11 +113,11 @@ INSERT INTO `category_news` (`id`, `category_id`, `news_id`) VALUES
 --
 
 CREATE TABLE `mail` (
-  `id` int UNSIGNED NOT NULL,
-  `name_surname` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `subject` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `name_surname` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -156,9 +155,9 @@ INSERT INTO `mail` (`id`, `name_surname`, `email`, `subject`, `content`, `create
 --
 
 CREATE TABLE `migrations` (
-  `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -172,7 +171,18 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2022_12_26_140732_create_category_table', 1),
 (5, '2022_12_26_140749_create_mail_table', 1),
 (6, '2022_12_26_141649_create_category_news_table', 1),
-(7, '2022_12_26_190222_create_subscriber_table', 2);
+(7, '2022_12_26_190222_create_subscriber_table', 2),
+(8, '2023_02_23_224150_create_collection_table', 3),
+(9, '2023_02_23_224400_create_comment_table', 4),
+(10, '2023_02_23_224616_create_news_point_table', 4),
+(11, '2023_02_23_225347_create_collection_table', 5),
+(12, '2023_02_23_225452_create_news_collection_table', 6),
+(13, '2023_02_23_225515_create_news_favorite_table', 7),
+(14, '2023_02_23_225606_create_news_comment_table', 8),
+(15, '2023_02_23_225815_create_news_favorite_table', 9),
+(16, '2023_02_23_225833_create_news_comment_table', 10),
+(17, '2023_02_23_225910_create_news_point_table', 11),
+(18, '2023_02_24_194801_create_news_favorite_table', 12);
 
 -- --------------------------------------------------------
 
@@ -181,11 +191,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `news` (
-  `id` int UNSIGNED NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(275) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(275) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -229,16 +239,82 @@ INSERT INTO `news` (`id`, `title`, `slug`, `content`, `image`, `created_at`, `up
 -- --------------------------------------------------------
 
 --
+-- Tablo için tablo yapısı `news_collection`
+--
+
+CREATE TABLE `news_collection` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `collection_name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `news_comment`
+--
+
+CREATE TABLE `news_comment` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `news_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Tablo döküm verisi `news_comment`
+--
+
+INSERT INTO `news_comment` (`id`, `comment`, `user_id`, `news_id`, `created_at`, `updated_at`) VALUES
+(1, 'Uzun süredir böyle haber okumamıştım', 12, 3, '2023-02-24 18:12:30', '2023-02-24 18:12:30'),
+(2, 'haberlerinizde daha detay verirseniz mutlu olurum', 13, 3, '2023-02-24 18:14:06', '2023-02-24 18:14:06');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `news_favorite`
+--
+
+CREATE TABLE `news_favorite` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `collection_id` int(10) UNSIGNED DEFAULT NULL,
+  `news_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `news_point`
+--
+
+CREATE TABLE `news_point` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `point` int(11) NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `news_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Tablo için tablo yapısı `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
-  `id` bigint UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -252,8 +328,8 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 CREATE TABLE `subscriber` (
-  `id` int UNSIGNED NOT NULL,
-  `email` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -299,12 +375,12 @@ INSERT INTO `subscriber` (`id`, `email`) VALUES
 --
 
 CREATE TABLE `user` (
-  `id` int UNSIGNED NOT NULL,
-  `name_surname` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `isit_active` tinyint(1) NOT NULL DEFAULT '0',
-  `isit_executive` tinyint(1) NOT NULL DEFAULT '0',
+  `id` int(10) UNSIGNED NOT NULL,
+  `name_surname` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isit_active` tinyint(1) NOT NULL DEFAULT 0,
+  `isit_executive` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -366,6 +442,38 @@ ALTER TABLE `news`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Tablo için indeksler `news_collection`
+--
+ALTER TABLE `news_collection`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `news_collection_user_id_foreign` (`user_id`);
+
+--
+-- Tablo için indeksler `news_comment`
+--
+ALTER TABLE `news_comment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `news_comment_user_id_foreign` (`user_id`),
+  ADD KEY `news_comment_news_id_foreign` (`news_id`);
+
+--
+-- Tablo için indeksler `news_favorite`
+--
+ALTER TABLE `news_favorite`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `news_favorite_user_id_foreign` (`user_id`),
+  ADD KEY `news_favorite_collection_id_foreign` (`collection_id`),
+  ADD KEY `news_favorite_news_id_foreign` (`news_id`);
+
+--
+-- Tablo için indeksler `news_point`
+--
+ALTER TABLE `news_point`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `news_point_user_id_foreign` (`user_id`),
+  ADD KEY `news_point_news_id_foreign` (`news_id`);
+
+--
 -- Tablo için indeksler `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
@@ -395,49 +503,105 @@ ALTER TABLE `user`
 -- Tablo için AUTO_INCREMENT değeri `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `category_news`
 --
 ALTER TABLE `category_news`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `mail`
 --
 ALTER TABLE `mail`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `news_collection`
+--
+ALTER TABLE `news_collection`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `news_comment`
+--
+ALTER TABLE `news_comment`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `news_favorite`
+--
+ALTER TABLE `news_favorite`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `news_point`
+--
+ALTER TABLE `news_point`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `subscriber`
 --
 ALTER TABLE `subscriber`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- Dökümü yapılmış tablolar için kısıtlamalar
+--
+
+--
+-- Tablo kısıtlamaları `news_collection`
+--
+ALTER TABLE `news_collection`
+  ADD CONSTRAINT `news_collection_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+
+--
+-- Tablo kısıtlamaları `news_comment`
+--
+ALTER TABLE `news_comment`
+  ADD CONSTRAINT `news_comment_news_id_foreign` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `news_comment_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+
+--
+-- Tablo kısıtlamaları `news_favorite`
+--
+ALTER TABLE `news_favorite`
+  ADD CONSTRAINT `news_favorite_collection_id_foreign` FOREIGN KEY (`collection_id`) REFERENCES `news_collection` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `news_favorite_news_id_foreign` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `news_favorite_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+
+--
+-- Tablo kısıtlamaları `news_point`
+--
+ALTER TABLE `news_point`
+  ADD CONSTRAINT `news_point_news_id_foreign` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `news_point_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

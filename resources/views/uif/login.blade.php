@@ -2,13 +2,15 @@
 <head><title>Kullanıcı işlemleri
     </title>
     <link href="/uif/css/login.css" rel="stylesheet">
+    <link href="/uif/css/bootstrap.css" rel="stylesheet">
 </head>
-<body>
+<body style="background-color:#4070f4">
 @include('uif.layouts.partials.alert')
 @include('uif.layouts.partials.errors')
 <section class="container forms">
 
     <div class="form login" style="margin-right: 500px">
+
         <div class="form-content">
             <header>Giriş Yap</header>
             <form action="{{ route('uif.login') }}" method="post">
