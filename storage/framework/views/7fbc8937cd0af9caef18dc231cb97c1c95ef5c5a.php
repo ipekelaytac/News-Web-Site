@@ -53,7 +53,7 @@
                             </tfoot>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="5">Henüz koleksiyonda haber yok</td>
+                                    <td colspan="5">Henüz koleksiyonunuzda haber yok</td>
                                 </tr>
 
                             <?php endif; ?>

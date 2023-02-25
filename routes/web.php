@@ -85,9 +85,11 @@ Route::post('/aboneol', [UIFContactController::class, 'subscriber'])->name('uif.
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/favoriler', [UIFFavoriteNewsController::class, 'favorite'])->name('uif.favorite');
     Route::get('/favorisil/{id}', [UIFFavoriteNewsController::class, 'delete'])->name('uif.favorite_delete');
+    Route::get('/favorilereekle/{id}', [UIFFavoriteNewsController::class, 'add'])->name('uif.favorite_news_add');
     Route::get('/koleksiyon', [UIFFavoriteNewsController::class, 'collection'])->name('uif.collection');
     Route::get('/koleksiyonsil/{id}', [UIFFavoriteNewsController::class, 'collection_delete'])->name('uif.collection_delete');
     Route::post('/koleksiyonekle', [UIFFavoriteNewsController::class, 'collection_add'])->name('uif.collection_add');
+    Route::post('/koleksiyonahaberekle', [UIFFavoriteNewsController::class, 'collection_news_add'])->name('uif.collection_news_add');
     Route::get('/koleksiyon/{collection_slug}', [UIFFavoriteNewsController::class, 'collection_detail'])->name('uif.collection_detail');
     Route::get('/koleksiyonhabersil/{id}', [UIFFavoriteNewsController::class, 'collection_news_delete'])->name('uif.collection_news_delete');
     Route::post('/yorumyap', [UIFEvaluationNewsController::class, 'comment'])->name('uif.news_comment');

@@ -68,7 +68,7 @@
                             </tfoot>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="5">Henüz favorilerde haber yok</td>
+                                    <td colspan="5">Henüz favorilerinizde haber yok</td>
                                 </tr>
 
                             <?php endif; ?>

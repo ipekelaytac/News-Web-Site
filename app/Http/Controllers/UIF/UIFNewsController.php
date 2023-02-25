@@ -8,6 +8,7 @@ use App\Models\Categories;
 use App\Models\Category;
 use App\Models\Category_News;
 use App\Models\News;
+use App\Models\NewsCollection;
 use App\Models\NewsComment;
 use App\Models\NewsPoint;
 use App\Models\Team;
@@ -22,8 +23,9 @@ class UIFNewsController extends Controller
         $news =News::orderByDesc('created_at')->get();
         $news_categories=Category_News::with('category')->get();
         $categories = Category::all();
+        $collections = NewsCollection::where('user_id', auth()->id())->get();
 
-        return view('uif.news',compact('news','news_categories','categories'));
+        return view('uif.news',compact('news','collections','news_categories','categories'));
     }
     public function detail($slug){
         $news = News::where('slug',$slug)->firstOrFail();
@@ -41,7 +43,8 @@ class UIFNewsController extends Controller
         }else{
             $user_point = $user_points->point;
         }
-        return view('uif.news_detail',compact('news','categories','category','popular_news','news_comments','users','point','user_point'));
+        $collections = NewsCollection::where('user_id', auth()->id())->get();
+        return view('uif.news_detail',compact('news','collections','categories','category','popular_news','news_comments','users','point','user_point'));
     }
 
         public function category_news($category_slug){

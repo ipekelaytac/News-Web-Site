@@ -1,5 +1,5 @@
 <?php if(session()->has('message')): ?>
-    <div class="container">
+    <div class="container m-2">
         <div class="alert alert-<?php echo e(session('message_type')); ?>"><?php echo e(session ('message')); ?></div>
     </div>
 <?php endif; ?>

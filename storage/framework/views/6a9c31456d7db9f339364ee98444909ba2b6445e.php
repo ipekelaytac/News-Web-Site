@@ -1,4 +1,8 @@
 <?php $__env->startSection('title', 'Haberler'); ?>
+<?php $__env->startSection('head'); ?>
+    <link href="/uif/css/favorite.css" rel="stylesheet">
+
+<?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
     <div class="page-title lb single-wrapper">
         <div class="container">
@@ -28,11 +32,12 @@
                             <div class="blog-list-widget">
                                 <div class="list-group">
                                     <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <a href="<?php echo e(route('uif.news.category_news', $category->slug)); ?>" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="w-100 justify-content-between">
-                                            <h5 class="mb-1"><?php echo e($category->category_name); ?></h5>
-                                        </div>
-                                    </a>
+                                        <a href="<?php echo e(route('uif.news.category_news', $category->slug)); ?>"
+                                           class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="w-100 justify-content-between">
+                                                <h5 class="mb-1"><?php echo e($category->category_name); ?></h5>
+                                            </div>
+                                        </a>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                             </div><!-- end blog-list -->
@@ -80,28 +85,44 @@
                         <div class="blog-grid-system">
                             <div class="row">
                                 <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $entry): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="col-md-6">
-                                    <div class="blog-box">
-                                        <div class="post-media">
-                                            <a href="<?php echo e(route('uif.news.detail', $entry->slug)); ?>" title="">
-                                                <img style="height: 250px" src="<?php echo e($entry->image!=null ? asset('uploads/news/' . $entry->image) : 'https://via.placeholder.com/300?text=HaberResmi'); ?>" alt="" class="img-fluid">
+                                    <div class="col-md-6">
+                                        <div class="blog-box">
+                                            <div class="post-media">
+                                                <a href="<?php echo e(route('uif.news.detail', $entry->slug)); ?>" title="">
+                                                    <img style="height: 250px"
+                                                         src="<?php echo e($entry->image!=null ? asset('uploads/news/' . $entry->image) : 'https://via.placeholder.com/300?text=HaberResmi'); ?>"
+                                                         alt="" class="img-fluid">
 
-                                            </a>
-                                        </div><!-- end media -->
-                                        <div class="blog-meta big-meta">
+                                                </a>
+                                            </div><!-- end media -->
+                                            <div class="blog-meta big-meta">
+                                                <div class="dflex">
+                                                    <h4><a href="<?php echo e(route('uif.news.detail', $entry->slug)); ?>"
+                                                           title=""><?php echo e($entry->title); ?></a></h4>
+                                                    <?php if(auth()->guard()->check()): ?>
+                                                        <div class="favorite" style="margin-top: 10px">
+                                                            <a href="<?php echo e(route('uif.favorite_news_add',$entry->id )); ?>"><img
+                                                                        width="30" src="/uif/images/favorite.png"></a>
 
-                                            <h4><a href="<?php echo e(route('uif.news.detail', $entry->slug)); ?>" title=""><?php echo e($entry->title); ?></a></h4>
-                                            <p><?php echo Str::limit($entry->content,100,'...'); ?></p><b>Kategori:</b>
-                                        <?php $__currentLoopData = $news_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <?php if($category->news_id == $entry->id): ?>
-                                                       <small><a href="<?php echo e(route('uif.news.category_news', $category->category->slug)); ?>" title=""><?php echo e($category->category->category_name); ?></a></small>
-                                                <?php endif; ?>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                            <b>Tarih:  </b><small><a href="<?php echo e(route('uif.news.detail', $entry->slug)); ?>" title=""><?php echo e(date('d/m/Y',strtotime($entry->created_at))); ?></a></small>
 
-                                        </div><!-- end meta -->
-                                    </div><!-- end blog-box -->
-                                </div><!-- end col -->
+
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <p><?php echo Str::limit($entry->content,100,'...'); ?></p><b>Kategori:</b>
+                                                <?php $__currentLoopData = $news_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php if($category->news_id == $entry->id): ?>
+                                                        <small><a href="<?php echo e(route('uif.news.category_news', $category->category->slug)); ?>"
+                                                                  title=""><?php echo e($category->category->category_name); ?></a></small>
+                                                    <?php endif; ?>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                <b>Tarih: </b><small><a
+                                                            href="<?php echo e(route('uif.news.detail', $entry->slug)); ?>"
+                                                            title=""><?php echo e(date('d/m/Y',strtotime($entry->created_at))); ?></a></small>
+
+                                            </div><!-- end meta -->
+                                        </div><!-- end blog-box -->
+                                    </div><!-- end col -->
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div><!-- end row -->
                         </div><!-- end blog-grid-system -->

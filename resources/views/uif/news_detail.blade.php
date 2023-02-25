@@ -3,11 +3,9 @@
 @section('head')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="/uif/css/star.css" rel="stylesheet">
-    <style>
-        .notchecked {
-            color: grey;
-        }
-    </style>
+
+        <link href="/uif/css/favorite.css" rel="stylesheet">
+
 @endsection
 @section('content')
 
@@ -44,8 +42,9 @@
                                 </ul>
                             </div><!-- end post-sharing -->
                         </div><!-- end title -->
-                        <div class="row">
-                            <div class="col-5  mb-2">
+
+                        <div class="dflex mb-5" >
+                            <div class="">
                                 <b class="">Haber Değerlendirme:</b>
                                 @for($i = 0 ; $i < $point; $i++)
                                     <span class="fa fa-star  m-1"></span>
@@ -54,12 +53,42 @@
                                     <span class="fa fa-star  notchecked m-1"></span>
                                 @endfor
                             </div>
-                            <div class="col-4 mb-2 offset-3">
-                                <a class="btn btn-danger mb-1">Favorilere Ekle</a>
-                                <a class="btn btn-primary mb-1">Koleksiyona Ekle</a></div>
+                            @auth
+                                <div class="favorite">
+                                    <a href="{{ route('uif.favorite_news_add',$news->id ) }}"><img width="30" src="/uif/images/favorite.png"></a>
+                                    <a id="collectionopen" class="btn-modal"><img width="30" src="/uif/images/collection.png"></a>
+                                </div>
+
+                                <div class="box" style="z-index: 3!important; position: relative">
+                                    <div class="overlay"></div>
+                                    <div class="modal__box">
+                                        <div class="dflex">
+                                        <h3 class="modal__title">Koleksiyona Ekle</h3>
+                                            <b class=" modal__button modal__button--no">X</b></div>
+                                        @if(count($collections) == 0)
+                                            <p>Henüz koleksiyonunuz bulunmamaktadır!<br><a href="{{ route('uif.collection') }}"><b>koleksiyon oluşturmak için tıklayın.</b></a></p>
+                                        @endif
+                                        @foreach($collections as $collection)
+                                            <form action="{{route('uif.collection_news_add')}}" method="post">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="news_id" value="{{ $news->id}}">
+                                                <input type="hidden" name="collection_id" value="{{ $collection->id }}">
+                                                <input type="submit" class="btn btn-theme m-1"
+                                                       value="{{ $collection->collection_name }}">
+                                            </form>
+                                        @endforeach
+
+                                    </div>
+                                </div>
+
+
+                            @endauth
                         </div>
+
+                        @include('uif.layouts.partials.alert')
+                        @include('uif.layouts.partials.errors')
                         <div class="single-post-media">
-                            <img src="{{ $news->image!=null ? asset('uploads/news/' . $news->image) : 'https://via.placeholder.com/500?text=HaberResmi' }}"
+                            <img  style="z-index: 0!important; position: relative" src="{{ $news->image!=null ? asset('uploads/news/' . $news->image) : 'https://via.placeholder.com/500?text=HaberResmi' }}"
                                  alt="" class="img-fluid">
                         </div><!-- end media -->
 
@@ -83,8 +112,6 @@
                         </div><!-- end row -->
                         <hr class="invis1">
 
-                        @include('uif.layouts.partials.alert')
-                        @include('uif.layouts.partials.errors')
                         <hr class="invis1">
                         <div class="custombox clearfix">
                             <h4 class="small-title">Puan Ver</h4>
@@ -276,9 +303,31 @@
 
         </div><!-- end container -->
     </section>
+
+@endsection
+@section('js')
     <script>
-        $(':radio').change(function () {
-            console.log('Yeni Star Puanı: ' + this.value);
+        // ---- ---- ---- ---- ---- //
+        const modal = document.querySelector('.box'),
+            overlay = document.querySelector('.overlay'),
+            modalBtn = document.querySelector('.btn-modal'),
+            yesBtn = document.querySelector('.modal__button--yes');
+        closeBtn = document.querySelector('.modal__button--no');
+
+        // ---- ---- Open Modal ---- ---- //
+        modalBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+        });
+        // ---- ---- Close Modal ---- ---- //
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+        yesBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+        // ---- ---- Close Modal Overlay---- ---- //
+        overlay.addEventListener('click', () => {
+            modal.classList.remove('active');
         });
     </script>
 @endsection

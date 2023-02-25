@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Category_News;
 use App\Models\News;
+use App\Models\NewsCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +19,7 @@ class UIFIndexController extends Controller
         $news_banner_2 = News::whereNot('id',$news_banner_1->id)->orderByDesc('created_at')->first();
         $news_banner_3 = News::whereNotIn('id',[$news_banner_1->id,$news_banner_2->id,])->orderByDesc('created_at')->first();
         $news = News::whereNotIn('id',[$news_banner_1->id,$news_banner_2->id,$news_banner_3->id])->orderByDesc('created_at')->take(10)->get();
-
+        $collections = NewsCollection::where('user_id', auth()->id())->get();
 //        $news_with_category_get = DB::table('category_news')
 //            ->join('news', 'news.id', 'category_news.id')
 //            ->join('category', 'category.id', 'category_news.category_id')
@@ -51,7 +52,7 @@ class UIFIndexController extends Controller
         $categories=Category_News::with('category')->get();
 
 
-        return view('uif.index',compact('categories','popular_news','news_banner_1','news_banner_2','news_banner_3','news'));
+        return view('uif.index',compact('categories','collections','popular_news','news_banner_1','news_banner_2','news_banner_3','news'));
     }
 
 

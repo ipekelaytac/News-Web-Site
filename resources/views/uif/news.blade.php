@@ -1,5 +1,9 @@
 @extends('uif.layouts.master')
 @section('title', 'Haberler')
+@section('head')
+    <link href="/uif/css/favorite.css" rel="stylesheet">
+
+@endsection
 @section('content')
     <div class="page-title lb single-wrapper">
         <div class="container">
@@ -29,11 +33,12 @@
                             <div class="blog-list-widget">
                                 <div class="list-group">
                                     @foreach($categories as $category)
-                                    <a href="{{ route('uif.news.category_news', $category->slug) }}" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="w-100 justify-content-between">
-                                            <h5 class="mb-1">{{$category->category_name}}</h5>
-                                        </div>
-                                    </a>
+                                        <a href="{{ route('uif.news.category_news', $category->slug) }}"
+                                           class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="w-100 justify-content-between">
+                                                <h5 class="mb-1">{{$category->category_name}}</h5>
+                                            </div>
+                                        </a>
                                     @endforeach
                                 </div>
                             </div><!-- end blog-list -->
@@ -81,28 +86,44 @@
                         <div class="blog-grid-system">
                             <div class="row">
                                 @foreach($news as $entry)
-                                <div class="col-md-6">
-                                    <div class="blog-box">
-                                        <div class="post-media">
-                                            <a href="{{ route('uif.news.detail', $entry->slug) }}" title="">
-                                                <img style="height: 250px" src="{{ $entry->image!=null ? asset('uploads/news/' . $entry->image) : 'https://via.placeholder.com/300?text=HaberResmi' }}" alt="" class="img-fluid">
+                                    <div class="col-md-6">
+                                        <div class="blog-box">
+                                            <div class="post-media">
+                                                <a href="{{ route('uif.news.detail', $entry->slug) }}" title="">
+                                                    <img style="height: 250px"
+                                                         src="{{ $entry->image!=null ? asset('uploads/news/' . $entry->image) : 'https://via.placeholder.com/300?text=HaberResmi' }}"
+                                                         alt="" class="img-fluid">
 
-                                            </a>
-                                        </div><!-- end media -->
-                                        <div class="blog-meta big-meta">
+                                                </a>
+                                            </div><!-- end media -->
+                                            <div class="blog-meta big-meta">
+                                                <div class="dflex">
+                                                    <h4><a href="{{ route('uif.news.detail', $entry->slug) }}"
+                                                           title="">{{ $entry->title }}</a></h4>
+                                                    @auth()
+                                                        <div class="favorite" style="margin-top: 10px">
+                                                            <a href="{{ route('uif.favorite_news_add',$entry->id ) }}"><img
+                                                                        width="30" src="/uif/images/favorite.png"></a>
 
-                                            <h4><a href="{{ route('uif.news.detail', $entry->slug) }}" title="">{{ $entry->title }}</a></h4>
-                                            <p>{!!      Str::limit($entry->content,100,'...')!!}</p><b>Kategori:</b>
-                                        @foreach($news_categories as $category)
-                                                @if($category->news_id == $entry->id)
-                                                       <small><a href="{{ route('uif.news.category_news', $category->category->slug) }}" title="">{{$category->category->category_name}}</a></small>
-                                                @endif
-                                            @endforeach
-                                            <b>Tarih:  </b><small><a href="{{ route('uif.news.detail', $entry->slug) }}" title="">{{date('d/m/Y',strtotime($entry->created_at))}}</a></small>
+{{--                                                            <a><img width="30" src="/uif/images/collection.png"></a>--}}
 
-                                        </div><!-- end meta -->
-                                    </div><!-- end blog-box -->
-                                </div><!-- end col -->
+                                                        </div>
+                                                    @endauth
+                                                </div>
+                                                <p>{!!      Str::limit($entry->content,100,'...')!!}</p><b>Kategori:</b>
+                                                @foreach($news_categories as $category)
+                                                    @if($category->news_id == $entry->id)
+                                                        <small><a href="{{ route('uif.news.category_news', $category->category->slug) }}"
+                                                                  title="">{{$category->category->category_name}}</a></small>
+                                                    @endif
+                                                @endforeach
+                                                <b>Tarih: </b><small><a
+                                                            href="{{ route('uif.news.detail', $entry->slug) }}"
+                                                            title="">{{date('d/m/Y',strtotime($entry->created_at))}}</a></small>
+
+                                            </div><!-- end meta -->
+                                        </div><!-- end blog-box -->
+                                    </div><!-- end col -->
                                 @endforeach
                             </div><!-- end row -->
                         </div><!-- end blog-grid-system -->

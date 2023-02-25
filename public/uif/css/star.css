@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
 .checked {
     color: orange;
 }
@@ -66,4 +68,65 @@
 .rating label input:focus:not(:checked) ~ .icon:last-child {
     color: #000;
     text-shadow: 0 0 5px #09f;
+}
+
+
+
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.box.active .btn-modal {
+    display: none;
+}
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    opacity: 0;
+}
+.modal__box {
+    position: absolute;
+    transform: scale(0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px 40px;
+    background-color: #fefefe;
+    border-radius: 16px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+.modal__title,
+.modal__text {
+    margin-bottom: 20px;
+}
+.box.active .overlay,
+.box.active .modal__box {
+    opacity: 1;
+    pointer-events: auto;
+}
+.box.active .modal__box {
+    transform: scale(1);
+    transition: all 0.3s ease;
 }

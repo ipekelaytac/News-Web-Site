@@ -23,27 +23,27 @@ class UIFFavoriteNewsController extends Controller
         return view('uif.favorite', compact('favorite_news','favorite_collections'));
     }
 
-    public function add()
+    public function add($id)
     {
-        $news = News::find(\request('id'));
+        $news = News::find($id);
         $empty = NewsFavorite::where('user_id', auth()->id())
-            ->where('news_id',request('id'))
+            ->where('news_id',$id)
             ->where('collection_id',NULL)
             ->count();
         if($empty==0){
             NewsFavorite::create([
                 'user_id' => auth()->id(),
-                'news_id'=>request('id'),
+                'news_id'=>$id,
             ]);
         }
         else{
             return redirect()
-                ->route('uif.news', $news->slug)
+                ->route('uif.news.detail', $news->slug)
                 ->with('message', 'Bu ürün favorilerde var!')
                 ->with('message_type', 'warning');
         }
         return redirect()
-            ->route('uif.news', $news->slug)
+            ->route('uif.news.detail', $news->slug)
             ->with('message', 'Favorilere eklendi.')
             ->with('message_type', 'success');
     }
@@ -97,12 +97,19 @@ class UIFFavoriteNewsController extends Controller
     public function collection_delete($id)
     {
         $collection = NewsCollection::find($id);
+        $collection_empty = NewsFavorite::where('collection_id',$id)->count();
+        if($collection_empty > 0){
+            return redirect()
+                ->route('uif.collection')
+                ->with('message', 'Koleksiyon boş değil.')
+                ->with('message_type', 'warning');
+        }else{
         $collection->delete();
-
         return redirect()
             ->route('uif.collection')
             ->with('message', 'Koleksiyon silindi')
             ->with('message_type', 'success');
+        }
     }
     public function collection_news_delete($id)
     {
@@ -130,12 +137,12 @@ class UIFFavoriteNewsController extends Controller
         }
         else{
             return redirect()
-                ->route('uif.news', $news->slug)
+                ->route('uif.news.detail', $news->slug)
                 ->with('message', 'Bu koleksiyonda haber var!')
                 ->with('message_type', 'warning');
         }
         return redirect()
-            ->route('uif.news', $news->slug)
+            ->route('uif.news.detail', $news->slug)
             ->with('message', 'Koleksiyona eklendi.')
             ->with('message_type', 'success');
     }
